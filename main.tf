@@ -51,6 +51,10 @@ resource "aws_rds_cluster" "rds" {
   )
 }
 
-output "rds" {
-  value = aws_rds_cluster.rds
+# creating aws ssm parameter user for mysql rds for running and adding schemaload which is given in app main
+
+resource "aws_ssm_parameter" "rds_endpoint" {
+  name  = "${var.env}.rds.Endpoint"
+  type  = "String"
+  value = aws_rds_cluster.rds.endpoint
 }
