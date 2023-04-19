@@ -51,6 +51,17 @@ resource "aws_rds_cluster" "rds" {
   )
 }
 
+# creating nodes(instances) in rds cluster
+resource "aws_rds_cluster_instance" "cluster_instances" {
+  count              = var.number_of_instances
+  identifier         = "${var.env}-rds-${count.index+1}"
+  cluster_identifier = aws_rds_cluster.rds.id
+  instance_class     = var.instance_class
+  engine             = aws_rds_cluster.rds.engine
+  engine_version     = aws_rds_cluster.rds.engine_version
+}
+
+
 # creating aws ssm parameter user for mysql rds for running and adding schemaload which is given in app main
 
 resource "aws_ssm_parameter" "rds_endpoint" {
