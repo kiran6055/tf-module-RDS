@@ -8,7 +8,7 @@ resource "aws_db_subnet_group" "default" {
   )
 }
 
-# creating securoty group for RDS
+# creating security group for RDS
 resource "aws_security_group" "rds" {
   name        = "${var.env}-rds-security-group"
   description = "${var.env}-rds-security-group"
